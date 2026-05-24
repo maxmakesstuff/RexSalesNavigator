@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #000000;
+  color: white;
+  min-height: 100vh;
+  margin: 0; padding: 0;
+}
+
+/* === Glass primitives === */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+.glass-card.no-hover-effect:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 255, 255, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+.glass-button:active { transform: scale(0.95); }
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+.glass-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+.glass-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+select.glass-input, select {
+  background-color: rgba(30, 41, 59, 0.95);
+  color: white;
+}
+select.glass-input option, select option {
+  background-color: rgb(30, 41, 59);
+  color: white;
+  padding: 8px 12px;
+}
+select.glass-input option:checked, select option:checked {
+  background-color: rgb(51, 65, 85);
+  color: white;
+}
+
+.gradient-text { color: #00ffff; }
+
+.sleek-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 255, 255, 0.25) transparent;
+}
+.sleek-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+.sleek-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.sleek-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 255, 255, 0.25);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.sleek-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 255, 255, 0.5);
+  background-clip: content-box;
+}
+
+@keyframes float    { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+@keyframes shimmer  { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+@keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.floating-element   { animation: float 6s ease-in-out infinite; }
+.shimmer { position: relative; overflow: hidden; }
+.shimmer::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* === Markdown rendering (prose-on-dark) === */
+.md-content {
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.7;
+  font-size: 15px;
+}
+.md-content h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #00ffff;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.02em;
+}
+.md-content h2 {
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 3rem 0 1rem;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.18);
+  padding-bottom: 0.5rem;
+}
+.md-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #00ffff;
+  margin: 2rem 0 0.75rem;
+}
+.md-content h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.95);
+  margin: 1.5rem 0 0.5rem;
+}
+.md-content p { margin: 0 0 1rem; }
+.md-content ul, .md-content ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+.md-content li { margin-bottom: 0.4rem; }
+.md-content li::marker { color: rgba(0, 255, 255, 0.8); }
+.md-content a {
+  color: #00ffff;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 255, 255, 0.4);
+  text-underline-offset: 2px;
+}
+.md-content a:hover { text-decoration-color: #00ffff; }
+.md-content strong { color: #fff; font-weight: 700; }
+.md-content em { color: rgba(255,255,255,0.85); font-style: italic; }
+.md-content blockquote {
+  border-left: 3px solid #00ffff;
+  margin: 1rem 0;
+  padding: 0.6rem 0 0.6rem 1.2rem;
+  background: rgba(0, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.92);
+  font-style: italic;
+}
+.md-content code {
+  background: rgba(0, 255, 255, 0.10);
+  color: #a5f3fc;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.9em;
+}
+.md-content pre {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(0,255,255,0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.md-content pre code {
+  background: transparent;
+  color: rgba(255,255,255,0.9);
+  padding: 0;
+}
+.md-content table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+.md-content th, .md-content td {
+  border: 1px solid rgba(0,255,255,0.18);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+.md-content th {
+  background: rgba(0, 255, 255, 0.10);
+  color: #00ffff;
+  font-weight: 600;
+}
+.md-content hr {
+  border: 0;
+  height: 1px;
+  background: rgba(0,255,255,0.15);
+  margin: 2rem 0;
+}
