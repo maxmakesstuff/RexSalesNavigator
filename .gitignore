@@ -1,0 +1,60 @@
+# ===========================================
+# Sensible Daten — NIEMALS committen
+# ===========================================
+# Echte Kontakt-/CRM-Daten bleiben strikt lokal
+data/private/
+data/customers.json
+data/contacts.json
+*.priv.json
+*.private.json
+.env
+.env.local
+.env.*.local
+
+# ===========================================
+# Node / Vite / React
+# ===========================================
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Coverage
+coverage/
+
+# ===========================================
+# Claude / Agenten Outputs (lokal, nicht im Repo)
+# ===========================================
+.claude/local/
+agents/inbox/
+agents/outbox/
+agents/runs/*.local.json
+
+# Python helper artefacts
+__pycache__/
+*.pyc
+.venv/
+venv/
