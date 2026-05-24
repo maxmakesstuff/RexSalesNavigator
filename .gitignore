@@ -49,9 +49,14 @@ coverage/
 # Claude / Agenten Outputs (lokal, nicht im Repo)
 # ===========================================
 .claude/local/
-agents/inbox/
-agents/outbox/
+agents/inbox/*
+agents/outbox/*
 agents/runs/*.local.json
+
+# …aber: Beispiel-Outputs + .gitkeep für Demo-Zwecke committen
+!agents/outbox/example_*.md
+!agents/outbox/.gitkeep
+!agents/inbox/.gitkeep
 
 # Python helper artefacts
 __pycache__/
