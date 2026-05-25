@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { api } from '../lib/api';
 import type { Company } from '../types';
+import Term from '../components/Term';
 
 const tierColor: Record<string, { border: string; text: string; bg: string }> = {
   'Tier 1 — Hot': { border: 'rgba(52,211,153,.5)', text: '#34d399', bg: 'rgba(52,211,153,.10)' },
@@ -38,21 +39,45 @@ export default function DashboardPage() {
     return { tiers, industries, totalCompanies: customers.length, totalContacts: customers.reduce((a, c) => a + c.contacts.length, 0), withMobile, withEmail };
   }, [customers]);
 
-  const todayPlan = [
-    { time: '08:30', task: '5 ABS-Sequenzen starten (Tier-1)', detail: 'Outbound-Block: Trumpf, Bosch, Voith, EnBW, Stadt Stuttgart' },
-    { time: '09:30', task: '3 LinkedIn-Touches', detail: 'View Profile + Kommentar auf neuestem Post bei Tier-1-Champions' },
-    { time: '11:00', task: 'Discovery Call: [Vorbereitung]', detail: 'GAP-Discovery-Skript laden, MEDDPICC-Scorecard offen halten' },
-    { time: '14:00', task: 'Reaktivierungs-Briefe Druck-Freigabe', detail: '30 Tier-1-Briefe diese Woche, Sonja koordiniert' },
-    { time: '16:00', task: '1 LinkedIn-Insight-Post', detail: 'Thema diese Woche: "EU-AI-Act 60-Tage-Countdown"' },
-    { time: '16:30', task: 'Pipeline-Health-Check', detail: 'Deals ohne Bewegung in letzten 14 Tagen → Rote Flagge setzen' },
+  const todayPlan: { time: string; task: ReactNode; detail: ReactNode }[] = [
+    {
+      time: '08:30',
+      task: <>5 <Term name="abs">ABS</Term>-<Term name="sequence">Sequenzen</Term> starten (Tier-1)</>,
+      detail: <><Term name="outbound">Outbound</Term>-Block: Trumpf, Bosch, Voith, EnBW, Stadt Stuttgart</>,
+    },
+    {
+      time: '09:30',
+      task: <>3 LinkedIn-<Term name="touch">Touches</Term></>,
+      detail: <>View Profile + Kommentar auf neuestem Post bei Tier-1-<Term name="champion">Champions</Term></>,
+    },
+    {
+      time: '11:00',
+      task: <><Term name="discovery-call">Discovery Call</Term>: Vorbereitung</>,
+      detail: <><Term name="gap-selling">GAP</Term>-<Term name="discovery-call">Discovery</Term>-Skript laden, <Term name="meddpicc">MEDDPICC</Term>-Scorecard offen halten</>,
+    },
+    {
+      time: '14:00',
+      task: <>Reaktivierungs-Briefe Druck-Freigabe</>,
+      detail: <>30 Tier-1-Briefe diese Woche, Sonja koordiniert</>,
+    },
+    {
+      time: '16:00',
+      task: <>1 LinkedIn-Insight-Post</>,
+      detail: <>Thema diese Woche: "<Term name="eu-ai-act">EU AI Act</Term> 60-Tage-Countdown"</>,
+    },
+    {
+      time: '16:30',
+      task: <><Term name="pipeline">Pipeline</Term>-Health-Check</>,
+      detail: <>Deals ohne Bewegung in letzten 14 Tagen → Rote Flagge setzen</>,
+    },
   ];
 
-  const weeklyTargets = [
-    { label: 'ABS-Sequenzen gestartet', target: 25, current: 0, unit: '' },
-    { label: 'Discovery-Calls geführt', target: 8, current: 0, unit: '' },
-    { label: 'Reaktivierungs-Briefe versendet', target: 30, current: 0, unit: '' },
-    { label: 'Qualifizierte Opp generiert', target: 3, current: 0, unit: '' },
-    { label: 'Qualifizierte Pipeline (EUR)', target: 290000, current: 0, unit: '€' },
+  const weeklyTargets: { label: ReactNode; target: number; current: number; unit: string }[] = [
+    { label: <><Term name="abs">ABS</Term>-<Term name="sequence">Sequenzen</Term> gestartet</>, target: 25, current: 0, unit: '' },
+    { label: <><Term name="discovery-call">Discovery-Calls</Term> geführt</>, target: 8, current: 0, unit: '' },
+    { label: <>Reaktivierungs-Briefe versendet</>, target: 30, current: 0, unit: '' },
+    { label: <>Qualifizierte <Term name="pipeline">Opp</Term> generiert</>, target: 3, current: 0, unit: '' },
+    { label: <>Qualifizierte <Term name="pipeline">Pipeline</Term> (EUR)</>, target: 290000, current: 0, unit: '€' },
   ];
 
   return (
@@ -140,8 +165,8 @@ export default function DashboardPage() {
             <span className="gradient-text">Diese Woche</span>
           </h3>
           <ul className="space-y-3">
-            {weeklyTargets.map(w => (
-              <li key={w.label}>
+            {weeklyTargets.map((w, i) => (
+              <li key={i}>
                 <div className="flex items-baseline justify-between mb-1.5">
                   <span className="text-white/75 text-xs">{w.label}</span>
                   <span className="text-white font-mono text-xs">
@@ -226,17 +251,17 @@ export default function DashboardPage() {
           className="glass-card no-hover-effect"
         >
           <h3 className="text-xl font-bold mb-3">
-            <span className="gradient-text">North-Star-Metric</span>
+            <span className="gradient-text"><Term name="north-star-metric">North-Star-Metric</Term></span>
           </h3>
           <p className="text-white/75 text-sm leading-relaxed">
-            <strong className="text-white">Qualifiziertes Pipeline-Volumen (EUR) erstellt pro Woche.</strong>
+            <strong className="text-white">Qualifizierte <Term name="pipeline">Pipeline</Term> (EUR) erstellt pro Woche.</strong>
             <br />
-            <span className="text-white/60">Definition: Summe neuer Opportunities in MEDDPICC-Stage 2+ (Pain + Champion identifiziert, Score ≥ 16/32).</span>
+            <span className="text-white/60">Definition: Summe neuer Opportunities in <Term name="meddpicc">MEDDPICC</Term>-Stage 2+ (Pain + <Term name="champion">Champion</Term> identifiziert, Score ≥ 16/32).</span>
           </p>
           <div className="mt-4 p-4 rounded-xl bg-cyan-500/8 border border-cyan-400/20">
             <div className="text-white/65 text-xs uppercase tracking-wider mb-1">Wochen-Ziel</div>
             <div className="text-3xl font-bold gradient-text">290.000 €</div>
-            <div className="text-white/45 text-xs mt-1">Pipeline (qualifiziert), 15 M € Jahres-Pipeline für 3,74 M € Umsatz bei 25 % Win-Rate</div>
+            <div className="text-white/45 text-xs mt-1"><Term name="pipeline">Pipeline</Term> (qualifiziert), 15 M € Jahres-<Term name="pipeline">Pipeline</Term> für 3,74 M € Umsatz bei 25 % <Term name="win-rate">Win-Rate</Term></div>
           </div>
         </motion.section>
 
